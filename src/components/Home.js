@@ -1,7 +1,7 @@
 // @flow
 
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Redirect, Link } from 'react-router-dom';
 
 export type Props = {
   isAuthenticated: boolean,
@@ -10,15 +10,8 @@ export type Props = {
 const Home = ({isAuthenticated}: Props) => (
   <div>
     { isAuthenticated
-      ? <div>
-          <p>Willkommen zurück!</p>
-          <Link to={'/dashboard'}>Zum Dashboard</Link>
-        </div>
-      : <div>
-          <Link to={'/login'}>Einloggen</Link>
-          <p>Falls Sie noch keinen Account besitzen können Sie sich hier registrieren:</p>
-          <Link to={'/signup'}>Registrieren</Link>
-        </div>
+      ? <Redirect to="/dashboard" />
+      : <Redirect to="/login" />
     }
   </div>
 )
