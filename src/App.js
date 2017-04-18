@@ -70,17 +70,36 @@ class App extends React.Component {
     const MenuBar = withRouter(({ history, location: { pathname } }) => {
       if(isAuthenticated && user) {
         return (
-          <nav>
-            <span>{user.firstname} {user.lastname} &ndash; {user.accountNr}</span>
-            {/* Links inside the App are created using the react-router's Link component */}
-            <Link to="/">Home</Link>
-            <Link to="/dashboard">Kontoübersicht</Link>
-            <Link to="/transactions">Zahlungen</Link>
-            <a href="/logout" onClick={(event) => {
-              event.preventDefault()
-              this.signout(() => history.push('/'))
-            }}>Logout {user.firstname} {user.lastname}</a>
-          </nav>
+          <nav className="nav has-shadow">
+            <div className="container">
+              <div className="nav-left">
+                <a className="nav-item app-title">
+                  💰💰💰 🤑
+                </a>
+              </div>
+
+            <span className="nav-toggle" onClick={() => {var menu = document.querySelector('.nav-right.nav-menu'); menu.classList.toggle('is-active');}}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+
+            <div className="nav-right nav-menu">
+              <Link className="nav-item" to="/dashboard">
+                Home
+              </Link>
+              <Link className="nav-item" to="/transactions">
+                Transactions
+              </Link>
+              <span className="nav-item" onClick={(event) => {
+                event.preventDefault()
+                this.signout(() => history.push('/login'))
+              }}>
+                <a className="button is-light">Logout {user.firstname}&nbsp;{user.lastname}</a>
+              </span>
+            </div>
+          </div>
+        </nav>
         )
       } else {
         return null
