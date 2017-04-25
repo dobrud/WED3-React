@@ -3,7 +3,7 @@
 import React from 'react'
 import { Redirect, Link } from 'react-router-dom'
 
-import { signup, login } from '../api'
+import { signup } from '../api'
 
 export type Props = {
   /* Callback to submit an authentication request to the server */
@@ -152,9 +152,9 @@ class Signup extends React.Component {
     )
   }
 
-  render() {    
-    const { redirectToReferrer, error } = this.state
-    
+  render() {
+    const { redirectToReferrer } = this.state
+
     if (redirectToReferrer) {
       return (
         <Redirect to='/login'/>

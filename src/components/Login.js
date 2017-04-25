@@ -88,8 +88,8 @@ class Login extends React.Component {
 
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/dashboard' } }
-    const { redirectToReferrer, error } = this.state
-    
+    const { redirectToReferrer } = this.state
+
     if (redirectToReferrer) {
       return (
         <Redirect to={from}/>
