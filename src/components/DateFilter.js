@@ -135,7 +135,7 @@ class DateFilter extends React.Component {
 							>
 								{ this.getMonths().map( ( month ) => {
 										return (
-											<option value={month.key}>{month.emoji} {' '} {month.name}</option>
+											<option value={month.key}>{month.emoji}&nbsp;&nbsp;{month.name}</option>
 										)
 									}
 								)}
