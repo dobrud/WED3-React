@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import SelectOptions from './SelectOptions'
 
 class DateFilter extends React.Component {
 	props: Props;
@@ -107,42 +108,10 @@ class DateFilter extends React.Component {
 		return (
 			<form>
 				<h2 className="title is-5">Filter</h2>
-				<div className="field">
-					<label className="label">Year</label>
-					<p className="control">
-						<span className="select">
-							<select
-								defaultValue={this.getCurrentYear()}
-								onChange={this.handleYearChange}
-							>
-								{ this.getYears( 2010 ).map( ( year ) => {
-										return (
-											<option value={year}>{year}</option>
-										)
-									}
-								)}
-							</select>
-						</span>
-					</p>
-				</div>
-				<div className="field">
-					<label className="label">Month</label>
-					<p className="control">
-						<span className="select">
-							<select
-								defaultValue={this.getCurrentMonth()}
-								onChange={this.handleMonthChange}
-							>
-								{ this.getMonths().map( ( month ) => {
-										return (
-											<option value={month.key}>{month.emoji}&nbsp;&nbsp;{month.name}</option>
-										)
-									}
-								)}
-							</select>
-						</span>
-					</p>
-				</div>
+				<SelectOptions label="Year" defaultValue={this.getCurrentYear()} onChange={this.handleYearChange} 
+				options={this.getYears( 2010 ).map( ( year ) => {return {label:year, value:year};})} />
+				<SelectOptions label="Month" defaultValue={this.getCurrentMonth()} onChange={this.handleMonthChange} 
+				options={this.getMonths().map( ( month ) => {return {label: month.emoji+'  '+month.name, value:month.key};})} />
 			</form>
 		);
 	}
