@@ -48,9 +48,9 @@ class TransactionList extends React.Component {
           </tr>
         </thead>
         <tbody>
-          { this.props.transactions && this.props.transactions.map((transaction) => {
+          { this.props.transactions && this.props.transactions.map((transaction, index) => {
             return (
-                <TransactionRow transaction={transaction} showDate={this.props.showDate} />
+                <TransactionRow key={index} transaction={transaction} showDate={this.props.showDate} />
               )
             }
           )}
