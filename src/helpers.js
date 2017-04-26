@@ -4,5 +4,9 @@ export function formatDate(dateString: string) {
 }
 
 export function formatAmount(amount: string) {
-  return (Math.ceil(amount*20)/20).toFixed(2);
+  if ( typeof amount === 'undefined' ) {
+    return '';
+  }
+
+  return (Math.ceil(amount*20)/20).toLocaleString('en-US', {minimumFractionDigits: 2});
 }
