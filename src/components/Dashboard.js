@@ -17,17 +17,19 @@ class Dashboard extends React.Component {
   state: {
     ownAccountAmount: string,
     transactions: Transaction[],
-    error: Error
+    error: Error,
+    isLoading:boolean
   };
 
   state = {
     ownAccountAmount: '',
-    error: undefined
+    error: undefined,
+    isLoading: true
   };
 
   refreshTransactions() {
     getTransactions(this.props.token).then(result => {
-      this.setState({transactions: result.result});
+      this.setState({transactions: result.result, isLoading: false});
     })
     .catch(error =>
       this.setState({error})
@@ -59,7 +61,9 @@ class Dashboard extends React.Component {
           <div className="column is-two-thirds">
             <div className="box no-shadow">
               <h2 className="title is-4">Latest Transactions</h2>
+              {!this.state.isLoading &&
               <TransactionList transactions={this.state.transactions} />
+              }
               <Link to="/transactions">
                 <button className="button is-info">All Transactions</button>
               </Link>

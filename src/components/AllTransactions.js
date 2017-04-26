@@ -22,7 +22,8 @@ class AllTransactions extends React.Component {
 		year: number,
 		month: number,
     currentPage:number,
-    totalPages:number
+    totalPages:number,
+    isLoading:boolean
 	};
 
 	state = {
@@ -30,7 +31,8 @@ class AllTransactions extends React.Component {
 		year:  new Date().getFullYear(),
 		month: new Date().getMonth(),
     totalPages: 0,
-    currentPage: 0
+    currentPage: 0,
+    isLoading: true
 	};
 
 	constructor(props) {
@@ -65,7 +67,7 @@ class AllTransactions extends React.Component {
 		toDate.setMonth(toDate.getMonth() + 1);
 
 		getTransactions( this.props.token, fromDate.toISOString(), toDate.toISOString(), MAX_TRANSACTIONS_PER_PAGE, page * MAX_TRANSACTIONS_PER_PAGE ).then( result => {
-			this.setState( { transactions: result.result, totalPages: Math.ceil(result.query.resultcount / MAX_TRANSACTIONS_PER_PAGE), currentPage: Math.floor(result.query.skip / MAX_TRANSACTIONS_PER_PAGE) } );
+			this.setState( { isLoading:false, transactions: result.result, totalPages: Math.ceil(result.query.resultcount / MAX_TRANSACTIONS_PER_PAGE), currentPage: Math.floor(result.query.skip / MAX_TRANSACTIONS_PER_PAGE) } );
 		})
 		.catch( error =>
 			this.setState( { error } )
@@ -99,7 +101,9 @@ class AllTransactions extends React.Component {
 				    <div className="column is-9">
 				      <div className="box no-shadow">
 				        <h2 className="title is-4">All Transactions</h2>
+                {!this.state.isLoading && 
 						    <TransactionList transactions={this.state.transactions} showDate="true"/>
+                }
                 {this.state.totalPages > 0 &&
                 <div className="pagination-links">
                   <button disabled={this.state.currentPage <= 0} className="button is-info" onClick={this.handlePagination(-1)}>&lt;&lt;</button>

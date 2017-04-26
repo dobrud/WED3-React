@@ -7,21 +7,9 @@ class TransactionList extends React.Component {
 
   props: Props
 
-  state: {
-    isProcessing: boolean
-  }
-
-  state = {
-    isProcessing: true
-  }
-
   hasTransactions() {
     return this.props.transactions && 0 < this.props.transactions.length;
   };
-
-  componentDidRecieveProps() {
-    this.setState({isProcessing: false});
-  }
 
   render() {
     return (
@@ -54,7 +42,7 @@ class TransactionList extends React.Component {
               )
             }
           )}
-          { !this.state.isProcessing && !this.hasTransactions() &&
+          { !this.hasTransactions() &&
             <tr>
               <td colSpan="5">
                 <div className="notification is-warning">
