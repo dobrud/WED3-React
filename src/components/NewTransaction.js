@@ -72,8 +72,10 @@ class NewTransaction extends React.Component {
     const value = event.target.value;
     this.setState({amount: value});
 
-    if (value <= 0 || value === '') {
+    if (value === '') {
       this.setState({amountState: 'is-danger', amountHelp: <p className="help is-danger">Please specify the amount</p>});
+    }else if (value < 0.05) {
+      this.setState({amountState: 'is-danger', amountHelp: <p className="help is-danger">Amount must be larger than 0.05 CHF</p>});
     } else if (parseInt(this.props.ownAccountAmount, 10) < value) {
       this.setState({amountState: 'is-danger', amountHelp: <p className="help is-danger">You can not overdraw your account. Please check your amount.</p>});
     } else if ( 0 < value ){
