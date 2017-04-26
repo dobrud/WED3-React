@@ -109,7 +109,7 @@ class DateFilter extends React.Component {
 			<form>
 				<h2 className="title is-5">Filter</h2>
 				<SelectOptions label="Year" defaultValue={this.getCurrentYear()} onChange={this.handleYearChange} 
-				options={this.getYears( 2010 ).map( ( year ) => {return {label:year, value:year};})} />
+				options={this.getYears( this.getCurrentYear() - 2 ).map( ( year ) => {return {label:year, value:year};})} />
 				<SelectOptions label="Month" defaultValue={this.getCurrentMonth()} onChange={this.handleMonthChange} 
 				options={this.getMonths().map( ( month ) => {return {label: month.emoji+'  '+month.name, value:month.key};})} />
 			</form>
