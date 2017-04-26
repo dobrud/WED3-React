@@ -92,7 +92,7 @@ class NewTransaction extends React.Component {
       this.setState({isProcessing: false, transferFailed: false, transferSuccessful: true});
     })
     .catch(error => {
-      this.setState({error, transferFailed: true})
+      this.setState({error, isProcessing: false, transferFailed: true})
     });
   }
 

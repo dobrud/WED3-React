@@ -25,6 +25,14 @@ class Dashboard extends React.Component {
     error: undefined
   };
 
+  refreshTransactions() {
+    getTransactions(this.props.token).then(result => {
+      this.setState({transactions: result.result});
+    })
+    .catch(error =>
+      this.setState({error})
+    );
+  }
   componentDidMount() {
     getAccountDetails(this.props.token).then(result => {
       this.setState({ownAccountAmount: result.amount});
@@ -33,16 +41,12 @@ class Dashboard extends React.Component {
       this.setState({error})
     );
 
-    getTransactions(this.props.token).then(result => {
-      this.setState({transactions: result.result});
-    })
-    .catch(error =>
-      this.setState({error})
-    );
+    this.refreshTransactions();
   }
 
   updateOwnAccountAmount(ownAccountAmount) {
     this.setState({ownAccountAmount});
+    this.refreshTransactions();
   }
 
   render() {
