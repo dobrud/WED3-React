@@ -95,7 +95,7 @@ class App extends React.Component {
                 event.preventDefault()
                 this.signout(() => history.push('/login'))
               }}>
-                <a className="button is-light">Logout {user.firstname}&nbsp;{user.lastname}</a>
+                <a className="button is-light">Log out {user.firstname}&nbsp;{user.lastname}</a>
               </span>
             </div>
           </div>
