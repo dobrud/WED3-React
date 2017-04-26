@@ -115,7 +115,7 @@ class DateFilter extends React.Component {
 								defaultValue={this.getCurrentYear()}
 								onChange={this.handleYearChange}
 							>
-								{ this.getYears( 2010 ).map( ( year ) => {
+								{ this.getYears( this.getCurrentYear() - 2 ).map( ( year ) => {
 										return (
 											<option value={year}>{year}</option>
 										)
