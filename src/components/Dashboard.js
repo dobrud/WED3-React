@@ -3,7 +3,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import NewTransaction from './NewTransaction';
-import { getAccountDetails } from '../api';
+import TransactionList from './TransactionList';
+import { getAccountDetails, getTransactions } from '../api';
 
 export type Props = {
   token: string,
@@ -14,12 +15,13 @@ class Dashboard extends React.Component {
   props: Props;
 
   state: {
-    ownAccountAmount: number,
+    ownAccountAmount: string,
+    transactions: Transaction[],
     error: Error
   };
 
   state = {
-    ownAccountAmount: undefined,
+    ownAccountAmount: '',
     error: undefined
   };
 
@@ -28,6 +30,14 @@ class Dashboard extends React.Component {
       console.log("Accountdetails result ", result);
       this.setState({ownAccountAmount: result.amount});
       })
+    .catch(error =>
+      this.setState({error})
+    );
+
+    getTransactions(this.props.token).then(result => {
+      console.log("Transactions result:", result.result);
+      this.setState({transactions: result.result});
+    })
     .catch(error =>
       this.setState({error})
     );
@@ -47,6 +57,7 @@ class Dashboard extends React.Component {
           <div className="column is-two-thirds">
             <div className="box no-shadow">
               <h2 className="title is-4">Latest Transactions</h2>
+              <TransactionList transactions={this.state.transactions} />
               <Link to="/transactions">
                 <button className="button is-info">All Transactions</button>
               </Link>
