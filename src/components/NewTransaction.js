@@ -117,63 +117,70 @@ class NewTransaction extends React.Component {
         { this.state.isProcessing &&
           <Spinner />
       }
-      { !this.state.transferSuccessful && !this.state.transferFailed &&
-        <div>
-          <h2 className="title is-4">New Transaction</h2>
-          <form>
-            <div className="field">
-              <label className="label">From</label>
-              <p className="control">
-                <input className="input" value={this.props.user.accountNr + " [" + formatAmount(this.props.ownAccountAmount) + " CHF]"} disabled />
-              </p>
-              <p className="help">Sender: {this.props.user.firstname} {this.props.user.lastname}</p>
-            </div>
-            <div className="field">
-              <label className="label">To</label>
-              <p className="control">
-                <input className={`input + ${this.state.targetAccountState}`} pattern=".{7,}" min="1000000" max="9999999" step="1" placeholder="Target Account Number" type="number" name="target" value={this.state.targetAccountNr} onChange={this.handleTargetAccountChanged} required />
-              </p>
-              { this.state.targetAccountHelp }
-            </div>
-            <div className="field">
-              <label className="label">Amount [CHF]</label>
-              <p className="control">
-                <input className={`input + ${this.state.amountState}`} min="0.05" step="0.05" placeholder="Amount in CHF" type="number" name="amount" value={this.state.amount} onChange={this.handleAmountChanged} required />
-              </p>
-              { this.state.amountHelp }
-            </div>
-            <p><button className="button is-info" onClick={this.handleSubmit} disabled={!(this.state.targetAccountState === 'is-success' && this.state.amountState === 'is-success')}>Send</button></p>
-          </form>
-        </div>
-      }
-      { this.state.transferSuccessful &&
-        <div>
-          <h2 className="title is-4">Transfer successful</h2>
-          <div className="notification is-success">
-            <button className="delete" onClick={this.newTransaction}></button>
-            <div className="content">
-              Successfully transferred {this.state.amount} CHF to {this.state.targetAccountNr}.
-
-              <p>Your new balance is {this.props.ownAccountAmount} CHF.</p>
-            </div>
-            <p><button className="button is-white" onClick={this.newTransaction}>New Transaction</button></p>
-          </div>
-        </div>
-      }
-      { this.state.transferFailed &&
-        <div>
-          <h2 className="title is-4">Transfer failed</h2>
-          <div className="notification is-danger">
-            <button className="delete" onClick={this.newTransaction}></button>
-            <div className="content">
-              Something went wrong with your transaction.
-            </div>
-            <p><button className="button is-white" onClick={this.newTransaction}>New Transaction</button></p>
-          </div>
-        </div>
-      }
+      { !this.state.transferSuccessful && !this.state.transferFailed && this.renderNewTransaction() }
+      { this.state.transferSuccessful && this.renderTransferSuccessful() }
+      { this.state.transferFailed && this.renderTransferFailed() }
     </div>
     )
+  }
+  renderTransferFailed() {
+    return (
+      <div>
+        <h2 className="title is-4">Transfer failed</h2>
+        <div className="notification is-danger">
+          <button className="delete" onClick={this.newTransaction}></button>
+          <div className="content">
+            Something went wrong with your transaction.
+          </div>
+          <p><button className="button is-white" onClick={this.newTransaction}>New Transaction</button></p>
+        </div>
+      </div>
+    )
+  }
+  renderTransferSuccessful() {
+    return (
+    <div>
+      <h2 className="title is-4">Transfer successful</h2>
+      <div className="notification is-success">
+        <button className="delete" onClick={this.newTransaction}></button>
+        <div className="content">
+          Successfully transferred {this.state.amount} CHF to {this.state.targetAccountNr}.
+
+          <p>Your new balance is {this.props.ownAccountAmount} CHF.</p>
+        </div>
+        <p><button className="button is-white" onClick={this.newTransaction}>New Transaction</button></p>
+      </div>
+    </div>)
+  }
+  renderNewTransaction() {
+    return (
+    <div>
+      <h2 className="title is-4">New Transaction</h2>
+      <form>
+        <div className="field">
+          <label className="label">From</label>
+          <p className="control">
+            <input className="input" value={this.props.user.accountNr + " [" + formatAmount(this.props.ownAccountAmount) + " CHF]"} disabled />
+          </p>
+          <p className="help">Sender: {this.props.user.firstname} {this.props.user.lastname}</p>
+        </div>
+        <div className="field">
+          <label className="label">To</label>
+          <p className="control">
+            <input className={`input + ${this.state.targetAccountState}`} pattern=".{7,}" min="1000000" max="9999999" step="1" placeholder="Target Account Number" type="number" name="target" value={this.state.targetAccountNr} onChange={this.handleTargetAccountChanged} required />
+          </p>
+          { this.state.targetAccountHelp }
+        </div>
+        <div className="field">
+          <label className="label">Amount [CHF]</label>
+          <p className="control">
+            <input className={`input + ${this.state.amountState}`} min="0.05" step="0.05" placeholder="Amount in CHF" type="number" name="amount" value={this.state.amount} onChange={this.handleAmountChanged} required />
+          </p>
+          { this.state.amountHelp }
+        </div>
+        <p><button className="button is-info" onClick={this.handleSubmit} disabled={!(this.state.targetAccountState === 'is-success' && this.state.amountState === 'is-success')}>Send</button></p>
+      </form>
+    </div>)
   }
 }
 
