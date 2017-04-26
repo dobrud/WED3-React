@@ -3,6 +3,8 @@
 import React from 'react';
 
 import { getAccount, transfer } from '../api';
+import { formatAmount } from '../helpers';
+import { Spinner } from './Spinner';
 
 class NewTransaction extends React.Component {
 
@@ -72,7 +74,7 @@ class NewTransaction extends React.Component {
 
     if (value <= 0 || value === '') {
       this.setState({amountState: 'is-danger', amountHelp: <p className="help is-danger">Please specify the amount</p>});
-    } else if (this.props.ownAccountAmount < value) {
+    } else if (parseInt(this.props.ownAccountAmount, 10) < value) {
       this.setState({amountState: 'is-danger', amountHelp: <p className="help is-danger">You can not overdraw your account. Please check your amount.</p>});
     } else if ( 0 < value ){
       this.setState({amountState: 'is-success', amountHelp: ''});
@@ -123,7 +125,7 @@ class NewTransaction extends React.Component {
             <div className="field">
               <label className="label">From</label>
               <p className="control">
-                <input className="input" value={this.props.user.accountNr + " [" + this.props.ownAccountAmount + " CHF]"} disabled />
+                <input className="input" value={this.props.user.accountNr + " [" + formatAmount(this.props.ownAccountAmount) + " CHF]"} disabled />
               </p>
               <p className="help">Sender: {this.props.user.firstname} {this.props.user.lastname}</p>
             </div>
