@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { formatDate, formatAmount } from '../helpers';
+import TransactionRow from './TransactionRow';
 
 class TransactionList extends React.Component {
 
@@ -50,15 +50,7 @@ class TransactionList extends React.Component {
         <tbody>
           { this.props.transactions && this.props.transactions.map((transaction) => {
             return (
-                <tr key={transaction.date}>
-                  { this.props.showDate &&
-                    <td><strong>{formatDate(transaction.date)}</strong></td>
-                  }
-                  <td>{transaction.from}</td>
-                  <td>{transaction.target}</td>
-                  <td style={{textAlign:'right'}}>{formatAmount(transaction.amount)}</td>
-                  <td style={{textAlign:'right'}}>{formatAmount(transaction.total)}</td>
-                </tr>
+                <TransactionRow transaction={transaction} showDate={this.props.showDate} />
               )
             }
           )}
