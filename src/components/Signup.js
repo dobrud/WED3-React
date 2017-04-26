@@ -139,7 +139,6 @@ class Signup extends React.Component {
     event.preventDefault()
     const { username, firstName, lastName, password } = this.state
     signup(username, firstName, lastName, password).then(result => {
-      console.log("Signup result ", result)
       this.props.authenticate(username, password, (error) => {
         if(error) {
           this.setState({error});

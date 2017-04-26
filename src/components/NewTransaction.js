@@ -88,7 +88,6 @@ class NewTransaction extends React.Component {
     this.setState({isProcessing: true});
     const { targetAccountNr, amount } = this.state;
     transfer(targetAccountNr, amount, this.props.token).then(result => {
-      console.log("Transfer result ", result)
       this.props.onAmountChange(result.total);
       this.setState({isProcessing: false, transferFailed: false, transferSuccessful: true});
     })

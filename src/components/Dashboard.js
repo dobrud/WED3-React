@@ -27,7 +27,6 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     getAccountDetails(this.props.token).then(result => {
-      console.log("Accountdetails result ", result);
       this.setState({ownAccountAmount: result.amount});
       })
     .catch(error =>
@@ -35,7 +34,6 @@ class Dashboard extends React.Component {
     );
 
     getTransactions(this.props.token).then(result => {
-      console.log("Transactions result:", result.result);
       this.setState({transactions: result.result});
     })
     .catch(error =>
